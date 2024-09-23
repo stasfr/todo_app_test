@@ -11,17 +11,20 @@ import VueRouter from "unplugin-vue-router/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
   plugins: [
     // https://github.com/posva/unplugin-vue-router
     VueRouter({
       routesFolder: [
         {
           src: "src/views",
-          path: "",
         },
       ],
     }),
-    vue(),
     vueDevTools(),
     VueMacros({
       defineOptions: false,
@@ -53,12 +56,7 @@ export default defineConfig({
     // https://github.com/antfu/vite-plugin-components
     Components({
       dts: true,
-      dirs: ["./src/components"],
+      dirs: ["./src/components", "./src/layouts"],
     }),
   ],
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
 });
