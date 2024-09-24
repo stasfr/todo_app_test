@@ -11,15 +11,18 @@ declare module 'vue' {
     ArchiveComponent: typeof import('./src/components/ArchiveComponent/index.vue')['default']
     ArchiveList: typeof import('./src/components/TodoComponent/ArchiveList.vue')['default']
     DotsIcon: typeof import('./src/components/Icons/DotsIcon.vue')['default']
+    GitHubIcon: typeof import('./src/components/Icons/GitHubIcon.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     MainLayout: typeof import('./src/layouts/MainLayout.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TodoCadTitle: typeof import('./src/components/TodoComponent/TodoCadTitle.vue')['default']
     TodoCard: typeof import('./src/components/TodoComponent/TodoCard.vue')['default']
     TodoComponent: typeof import('./src/components/TodoComponent/index.vue')['default']
     TodoControl: typeof import('./src/components/TodoComponent/TodoControl.vue')['default']
     TodoInput: typeof import('./src/components/TodoComponent/TodoInput.vue')['default']
     TodoList: typeof import('./src/components/TodoComponent/TodoList.vue')['default']
     TodoListLoading: typeof import('./src/components/TodoComponent/TodoListLoading.vue')['default']
+    UserIcon: typeof import('./src/components/Icons/UserIcon.vue')['default']
   }
 }

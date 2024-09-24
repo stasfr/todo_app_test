@@ -1,14 +1,12 @@
 <template>
-  <div
-    class="px-4 py-2 bg-neutral text-neutral-content rounded flex justify-between"
-  >
-    <div class="space-y-2">
+  <div class="p-4 bg-neutral text-neutral-content rounded flex justify-between">
+    <div class="flex flex-col justify-between">
       <span
         class="badge badge-primary text-transparent h-2 w-10"
         :class="{ 'badge-error': todo.isImportant }"
       ></span>
       <h2 class="font-bold line-clamp-1">{{ todo.title }}</h2>
-      <div class="text-xs">{{ formatDate(todo.startDate) }}</div>
+      <div class="text-xs">{{ formatDate(todo.endDate) }}</div>
     </div>
 
     <div class="flex flex-col items-center gap-4">
@@ -24,7 +22,6 @@
           tabindex="0"
           class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
         >
-          <li><a>Edit</a></li>
           <li @click="todoStore.toggleImportant(todo.id)">
             <a>Toggle Label</a>
           </li>
