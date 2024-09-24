@@ -7,13 +7,17 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    DotsIcon: typeof import('./src/components/Icons/DotsIcon.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Input: typeof import('./src/components/TodoComponent/Input.vue')['default']
+    List: typeof import('./src/components/TodoComponent/List.vue')['default']
     MainLayout: typeof import('./src/layouts/MainLayout.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
-    Views: typeof import('./src/views/index.vue')['default']
-    WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
+    Todo: typeof import('./src/components/Todo/index.vue')['default']
+    TodoCard: typeof import('./src/components/TodoComponent/TodoCard.vue')['default']
+    TodoComponent: typeof import('./src/components/TodoComponent/index.vue')['default']
+    TodoInput: typeof import('./src/components/TodoComponent/TodoInput.vue')['default']
+    TodoList: typeof import('./src/components/TodoComponent/TodoList.vue')['default']
   }
 }
