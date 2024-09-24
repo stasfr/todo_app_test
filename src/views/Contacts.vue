@@ -1,7 +1,6 @@
 <template>
   <section>
-    <h2>Todo Page</h2>
-    <TodoComponent />
+    <h2>Contacts</h2>
   </section>
 </template>
 

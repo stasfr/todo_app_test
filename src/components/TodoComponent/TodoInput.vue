@@ -1,34 +1,65 @@
 <template>
-  <form action="" class="join" @keydown="handleKeyDown">
+  <form
+    action=""
+    class="text-center space-y-2"
+    @keypress.enter.prevent="addTodo"
+  >
     <input
       type="text"
-      placeholder="Type here"
-      class="input input-bordered w-full max-w-xs join-item"
+      placeholder="What to do..."
+      class="input input-bordered w-full max-w-xs"
+      :class="{ 'input-error': isError }"
       v-model="todoTitle"
     />
+    <div class="form-control">
+      <label class="label cursor-pointer">
+        <span class="label-text" :class="{ 'text-error': isImportant }"
+          >Important</span
+        >
+        <input
+          type="checkbox"
+          class="toggle"
+          checked="checked"
+          v-model="isImportant"
+          :class="{ 'checkbox-error': isImportant }"
+        />
+      </label>
+    </div>
   </form>
+
+  <div class="join flex justify-center">
+    <button class="btn btn-primary join-item" @click="addTodo">Add</button>
+    <button class="btn btn-primary join-item" @click="todoStore.clearDoneTodos">
+      Clear Done
+    </button>
+    <button class="btn btn-primary join-item" @click="todoStore.clearTodos">
+      Clear all
+    </button>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { useTodoStore } from "@/stores/todo";
-import { Todo } from "@/src/types";
+import { Todo } from "../../types/todo.ts";
+import { useTodoStore } from "../../stores/todo.ts";
+
 const todoStore = useTodoStore();
 
 const todoTitle = ref<string>();
-
 const newTodo = ref<Todo>();
+const isImportant = ref<boolean>(false);
 
-function handleKeyDown(event: KeyboardEvent) {
-  if (event.key === "Enter") {
-    addTodo();
+const isError = ref<boolean>(false);
+
+function addTodo() {
+  if (todoTitle.value) {
+    todoStore.addTodo(todoTitle.value, isImportant.value);
+    todoTitle.value = "";
+  } else {
+    isError.value = true;
   }
 }
 
-function addTodo() {
-  newTodo.value = {
-    title: todoTitle.value,
-  };
-  todoStore.addTodo(newTodo.value);
-  todoTitle.value = "";
-}
+watch(todoTitle, () => {
+  isError.value = todoTitle.value === "";
+});
 </script>

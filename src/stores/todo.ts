@@ -8,21 +8,22 @@ export const useTodoStore = defineStore("todoStore", () => {
 
   const todosCount = computed(() => todos.value.length);
 
-  function addTodo(todo: Todo): void {
-    todo.id = Date.now().toString();
-    todo.isDone = false;
-    todo.startDate = Date.now();
-    todo.endDate = todo.startDate + 1000 * 60 * 60 * 24;
-    todo.label = "basic";
-    todos.value.push(todo);
-
-    ExpiringStorage.set("todos", todos.value);
+  function addTodo(title: string, isImportant: boolean = false): void {
+    const newTodo = {
+      id: Date.now().toString(),
+      title: title,
+      startDate: Date.now(),
+      endDate: Date.now() + 1000 * 60 * 60 * 24,
+      isDone: false,
+      isImportant: isImportant,
+    };
+    todos.value.push(newTodo);
+    setTodosToStorage();
   }
 
   function removeTodo(todo: Todo): void {
     todos.value = todos.value.filter((t) => t.id !== todo.id);
-
-    ExpiringStorage.set("todos", todos.value);
+    setTodosToStorage();
   }
 
   function getTodosFromStorage(): void {
@@ -61,16 +62,31 @@ export const useTodoStore = defineStore("todoStore", () => {
     }
   }
 
+  function clearDoneTodos(): void {
+    todos.value = todos.value.filter((t) => !t.isDone);
+    setTodosToStorage();
+  }
+
+  function toggleImportant(id: string): void {
+    const todo = getTodoById(id);
+    if (todo) {
+      todo.isImportant = !todo.isImportant;
+      updateTodo(todo);
+    }
+  }
+
   return {
     todos,
+    todosCount,
     addTodo,
     removeTodo,
-    todosCount,
     getTodosFromStorage,
     setTodosToStorage,
     clearTodos,
     getTodoById,
     updateTodo,
     toggleTodo,
+    clearDoneTodos,
+    toggleImportant,
   };
 });

@@ -6,8 +6,8 @@
       <RouterLink to="/"> TodoApp </RouterLink>
 
       <ul class="menu menu-horizontal lg:menu-horizontal rounded-box space-x-2">
-        <li><RouterLink to="/">Home</RouterLink></li>
-        <li><RouterLink to="/todo">Todos</RouterLink></li>
+        <li><RouterLink to="/">Todos</RouterLink></li>
+        <li><RouterLink to="/contacts">Contacts</RouterLink></li>
       </ul>
     </div>
   </header>

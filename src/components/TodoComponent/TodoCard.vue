@@ -1,10 +1,14 @@
 <template>
   <div
-    class="p-4 bg-neutral text-neutral-content rounded flex gap-8 justify-between"
+    class="px-4 py-2 bg-neutral text-neutral-content rounded flex justify-between"
   >
-    <div>
-      <h2 class="font-bold">{{ todo.title }}</h2>
-      <p>{{ todo.text }}</p>
+    <div class="space-y-2">
+      <span
+        class="badge badge-primary text-transparent h-2 w-10"
+        :class="{ 'badge-error': todo.isImportant }"
+      ></span>
+      <h2 class="font-bold line-clamp-1">{{ todo.title }}</h2>
+      <div class="text-xs">{{ formatDate(todo.startDate) }}</div>
     </div>
 
     <div class="flex flex-col items-center gap-4">
@@ -21,8 +25,10 @@
           class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
         >
           <li><a>Edit</a></li>
-          <li><a>Delete</a></li>
-          <li><a>Archive</a></li>
+          <li @click="todoStore.toggleImportant(todo.id)">
+            <a>Toggle Label</a>
+          </li>
+          <li @click="todoStore.removeTodo(todo)"><a>Delete</a></li>
         </ul>
       </div>
       <input
@@ -35,8 +41,8 @@
 </template>
 
 <script setup lang="ts">
-import { Todo } from "/src/types";
-import { useTodoStore } from "/src/stores/todo";
+import { Todo } from "../../types/todo.ts";
+import { useTodoStore } from "../../stores/todo.ts";
 
 const props = defineProps<{
   todo: Todo;
@@ -45,6 +51,13 @@ const props = defineProps<{
 const todoStore = useTodoStore();
 
 const isChecked = ref<boolean>(props.todo.isDone);
+
+function formatDate(date: number): string {
+  const d = new Date(date);
+  return `${d.getDate()}.${(d.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}.${d.getFullYear()}`;
+}
 
 watch(isChecked, () => {
   todoStore.toggleTodo(props.todo.id);

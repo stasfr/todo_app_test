@@ -1,5 +1,7 @@
 <template>
-  <div>content</div>
+  <section>
+    <TodoComponent />
+  </section>
 </template>
 
 <script setup lang="ts"></script>
