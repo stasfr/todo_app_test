@@ -1,12 +1,17 @@
 <template>
-  <div class="p-4 bg-neutral text-neutral-content rounded flex justify-between">
+  <div
+    class="p-4 bg-neutral text-neutral-content rounded flex justify-between border-neutral border-2"
+    :class="{ 'border-success': todo.isDone }"
+  >
     <div class="flex flex-col justify-between">
       <span
         class="badge badge-primary text-transparent h-2 w-10"
         :class="{ 'badge-error': todo.isImportant }"
       ></span>
-      <h2 class="font-bold line-clamp-1">{{ todo.title }}</h2>
-      <div class="text-xs">{{ formatDate(todo.endDate) }}</div>
+      <TodoCardTitle :todo="todo" v-model="isEditing" />
+      <div class="text-xs">
+        {{ formatDate(todo.endDate) }}
+      </div>
     </div>
 
     <div class="flex flex-col items-center gap-4">
@@ -22,6 +27,9 @@
           tabindex="0"
           class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
         >
+          <li @click="isEditing = !isEditing">
+            <a>Edit</a>
+          </li>
           <li @click="todoStore.toggleImportant(todo.id)">
             <a>Toggle Label</a>
           </li>
@@ -38,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { Todo } from "../../types/todo.ts";
+import type { Todo } from "../../types/todo.ts";
 import { useTodoStore } from "../../stores/todo.ts";
 
 const props = defineProps<{
@@ -48,6 +56,7 @@ const props = defineProps<{
 const todoStore = useTodoStore();
 
 const isChecked = ref<boolean>(props.todo.isDone);
+const isEditing = ref<boolean>(false);
 
 function formatDate(date: number): string {
   const d = new Date(date);

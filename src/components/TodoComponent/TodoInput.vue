@@ -39,13 +39,11 @@
 </template>
 
 <script setup lang="ts">
-import { Todo } from "../../types/todo.ts";
 import { useTodoStore } from "../../stores/todo.ts";
 
 const todoStore = useTodoStore();
 
 const todoTitle = ref<string>();
-const newTodo = ref<Todo>();
 const isImportant = ref<boolean>(false);
 
 const isError = ref<boolean>(false);

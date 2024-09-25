@@ -75,6 +75,13 @@ export const useTodoStore = defineStore("todoStore", () => {
     }
   }
 
+  function setNewTitle(todo: Todo, title: string): void {
+    if (todo) {
+      todo.title = title;
+      updateTodo(todo);
+    }
+  }
+
   return {
     todos,
     todosCount,
@@ -88,5 +95,6 @@ export const useTodoStore = defineStore("todoStore", () => {
     toggleTodo,
     clearDoneTodos,
     toggleImportant,
+    setNewTitle,
   };
 });
